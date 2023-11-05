@@ -3,9 +3,10 @@ import './index.scss'
 
 const App = () => {
 
-
     const handleClick = () => {
-        console.log('click')
+       fetch('http://localhost:5000/images').then(res => {
+            console.log(res)
+       })
     }
 
     return <>
