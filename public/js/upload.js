@@ -11,7 +11,7 @@ form.addEventListener("submit", (event) => {
         formData.append("files", files.files[i]);
     }
 
-    fetch("http://localhost:3000/upload", {
+    fetch("http://localhost:5000/upload", {
         method: "POST",
         body: formData,
     }).then((res) => {
