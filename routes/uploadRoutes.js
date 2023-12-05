@@ -16,6 +16,8 @@ const upload = multer({
     storage: storageEngine,
 });
 
-router.get("/", uploadPage).post("/upload", upload.array("files"), uploadFiles);
+router
+    .get("/upload", uploadPage)
+    .post("/upload", upload.array("files"), uploadFiles);
 
 module.exports = router;
