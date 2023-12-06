@@ -9,7 +9,19 @@ const login = (req, res) => {
     });
 };
 
+const signupPage = (req, res) => {
+    res.render("pages/signup");
+};
+
+const register = (req, res) => {
+    res.json({
+        message: "user created ",
+    });
+};
+
 module.exports = {
     loginPage,
     login,
+    signupPage,
+    register,
 };
