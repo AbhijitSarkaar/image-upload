@@ -10,8 +10,17 @@ app.set("view engine", "ejs");
 
 app.use(express.static("public"));
 
+app.use(express.json());
+
 app.use("/", routes);
-app.use("/auth", authRoutes);
+app.use(
+    "/auth",
+    (req, res, next) => {
+        console.log("/auth", req.body);
+        next();
+    },
+    authRoutes
+);
 
 const PORT = process.env.PORT;
 
