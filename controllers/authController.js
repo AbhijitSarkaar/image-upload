@@ -1,11 +1,15 @@
 const User = require("../models/usermodel");
+const bcrypt = require("bcrypt");
 
 const register = async (req, res) => {
     try {
         const { username, password } = req.body;
+
+        const hash = bcrypt.hashSync(password, 10);
+
         const userData = {
             username,
-            password,
+            password: hash,
         };
 
         await User.create(userData)
@@ -40,11 +44,44 @@ const loginPage = (req, res) => {
     res.render("pages/login");
 };
 
-const login = (req, res) => {
-    console.log(req.body);
-    res.json({
-        message: "logged in ",
-    });
+const login = async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        await User.findOne({
+            username,
+        })
+            .then((user) => {
+                if (!user) {
+                    return res.status(404).json({
+                        success: false,
+                        message: "user not found",
+                    });
+                } else if (bcrypt.compareSync(password, user.password)) {
+                    return res.status(200).json({
+                        sucesss: true,
+                        _id: user._id,
+                        username: user.username,
+                        message: "logged in",
+                    });
+                } else {
+                    return res.status(400).json({
+                        success: false,
+                        message: "invalid password",
+                    });
+                }
+            })
+            .catch((error) => {
+                res.status(404).json({
+                    success: false,
+                    message: error.message,
+                });
+            });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Internal server error",
+        });
+    }
 };
 
 const signupPage = (req, res) => {
