@@ -1,6 +1,7 @@
 const express = require("express");
 const routes = require("./routes/uploadRoutes");
 const authRoutes = require("./routes/authRoutes");
+const userRoutes = require("./routes/userRoutes");
 const connectDB = require("./db/db");
 const dotenv = require("dotenv");
 
@@ -23,6 +24,7 @@ app.use(
     },
     authRoutes
 );
+app.use("/user", userRoutes);
 
 const PORT = process.env.PORT;
 

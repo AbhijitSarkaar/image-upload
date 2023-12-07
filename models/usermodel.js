@@ -9,6 +9,11 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    images: {
+        type: Array,
+        required: true,
+        default: [],
+    },
 });
 
 const User = new mongoose.model("users", UserSchema);

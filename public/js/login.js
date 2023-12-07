@@ -18,9 +18,12 @@ loginForm.addEventListener("submit", (event) => {
             username: name,
             password: pwd,
         }),
-    }).then((res) => {
-        if (res.status === 200) {
-            window.location.href = "http://localhost:5000/upload";
-        }
-    });
+    })
+        .then((res) => res.json())
+        .then((res) => {
+            console.log(res);
+            if (res.success) {
+                window.location.href = `http://localhost:5000/user/${res._id}`;
+            }
+        });
 });

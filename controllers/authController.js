@@ -10,6 +10,7 @@ const register = async (req, res) => {
         const userData = {
             username,
             password: hash,
+            images: ["/uploads/product-1.jpg"],
         };
 
         await User.create(userData)
@@ -22,7 +23,7 @@ const register = async (req, res) => {
                 }
 
                 res.status(201).json({
-                    sucess: true,
+                    success: true,
                     message: "user created",
                 });
             })
@@ -58,7 +59,7 @@ const login = async (req, res) => {
                     });
                 } else if (bcrypt.compareSync(password, user.password)) {
                     return res.status(200).json({
-                        sucesss: true,
+                        success: true,
                         _id: user._id,
                         username: user.username,
                         message: "logged in",
