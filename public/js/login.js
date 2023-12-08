@@ -22,6 +22,10 @@ loginForm.addEventListener("submit", (event) => {
         .then((res) => res.json())
         .then((res) => {
             console.log(res);
+
+            if (res.auth_token)
+                sessionStorage.setItem("auth_token", res.auth_token);
+
             if (res.success) {
                 window.location.href = `http://localhost:5000/user/${res._id}`;
             }
