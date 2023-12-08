@@ -1,12 +1,11 @@
+const { createToken } = require("../utils/auth");
 const User = require("../models/usermodel");
 const bcrypt = require("bcrypt");
 
 const register = async (req, res) => {
     try {
         const { username, password } = req.body;
-
         const hash = bcrypt.hashSync(password, 10);
-
         const userData = {
             username,
             password: hash,
@@ -14,8 +13,8 @@ const register = async (req, res) => {
         };
 
         await User.create(userData)
-            .then((task) => {
-                if (!task) {
+            .then((createdUser) => {
+                if (!createdUser) {
                     return res.status(404).json({
                         success: false,
                         message: "user not created",
@@ -24,6 +23,8 @@ const register = async (req, res) => {
 
                 res.status(201).json({
                     success: true,
+                    _id: createdUser._id,
+                    username: createdUser.username,
                     message: "user created",
                 });
             })
@@ -48,6 +49,7 @@ const loginPage = (req, res) => {
 const login = async (req, res) => {
     try {
         const { username, password } = req.body;
+
         await User.findOne({
             username,
         })
@@ -58,9 +60,14 @@ const login = async (req, res) => {
                         message: "user not found",
                     });
                 } else if (bcrypt.compareSync(password, user.password)) {
+                    const token = createToken({
+                        _id: user._id,
+                    });
+
                     return res.status(200).json({
                         success: true,
                         _id: user._id,
+                        auth_token: token,
                         username: user.username,
                         message: "logged in",
                     });
