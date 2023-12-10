@@ -34,5 +34,12 @@ loginForm.addEventListener("submit", (event) => {
             username: name,
             password: pwd,
         }),
-    });
+    })
+        .then((res) => res.json())
+        .then((res) => {
+            if (res.success) {
+                sessionStorage.setItem("auth_token", res.auth_token);
+                window.location.href = `http://localhost:5000`;
+            }
+        });
 });

@@ -9,7 +9,7 @@ const register = async (req, res) => {
         const userData = {
             username,
             password: hash,
-            images: ["/uploads/product-1.jpg"],
+            images: [],
         };
 
         await User.create(userData)
@@ -21,9 +21,14 @@ const register = async (req, res) => {
                     });
                 }
 
+                const token = createToken({
+                    _id: createdUser._id,
+                });
+
                 res.status(201).json({
                     success: true,
                     _id: createdUser._id,
+                    auth_token: token,
                     username: createdUser.username,
                     message: "user created",
                 });
