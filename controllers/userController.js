@@ -1,7 +1,6 @@
 const User = require("../models/usermodel");
 
 const userHomePage = (req, res) => {
-    console.log("user id", req.userId);
     res.render("pages/home");
 };
 

@@ -1,8 +1,6 @@
-const [userId] = window.location.pathname.split("/").slice(-1);
-
 const token = sessionStorage.getItem("auth_token");
 
-fetch(`http://localhost:5000/user/profile/${userId}`, {
+fetch(`http://localhost:5000/user/profile`, {
     headers: {
         Authorization: `Bearer ${token}`,
     },

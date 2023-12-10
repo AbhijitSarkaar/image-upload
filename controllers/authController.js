@@ -96,9 +96,17 @@ const signupPage = (req, res) => {
     res.render("pages/signup");
 };
 
+const jwtverify = (req, res) => {
+    res.status(200).json({
+        success: true,
+        _id: req.userId,
+    });
+};
+
 module.exports = {
     loginPage,
     login,
     signupPage,
     register,
+    jwtverify,
 };

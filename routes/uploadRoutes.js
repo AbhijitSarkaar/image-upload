@@ -2,6 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const router = express.Router();
 const { uploadPage, uploadFiles } = require("../controllers/uploadController");
+const { userHomePage } = require("../controllers/userController");
 
 const storageEngine = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -15,6 +16,8 @@ const storageEngine = multer.diskStorage({
 const upload = multer({
     storage: storageEngine,
 });
+
+router.get("/", userHomePage);
 
 router
     .get("/upload", uploadPage)

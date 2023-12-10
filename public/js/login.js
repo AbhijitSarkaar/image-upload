@@ -1,5 +1,20 @@
-const loginForm = document.getElementById("login-form");
+const token = sessionStorage.getItem("auth_token");
 
+if (token) {
+    fetch("http://localhost:5000/auth/jwtverify", {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+        .then((res) => res.json())
+        .then((res) => {
+            if (res.success) {
+                window.location.href = `http://localhost:5000`;
+            }
+        });
+}
+
+const loginForm = document.getElementById("login-form");
 loginForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
@@ -27,7 +42,7 @@ loginForm.addEventListener("submit", (event) => {
                 sessionStorage.setItem("auth_token", res.auth_token);
 
             if (res.success) {
-                window.location.href = `http://localhost:5000/user/${res._id}`;
+                window.location.href = `http://localhost:5000`;
             }
         });
 });
