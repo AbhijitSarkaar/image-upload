@@ -21,4 +21,4 @@ if (token) {
             console.log(res);
         });
     });
-} else window.location.href = "http://localhost:5000/user/login";
+} else window.location.href = "http://localhost:5000/auth/login";
