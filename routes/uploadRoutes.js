@@ -4,17 +4,23 @@ const router = express.Router();
 const { uploadPage, uploadFiles } = require("../controllers/uploadController");
 const { userHomePage } = require("../controllers/userController");
 
-const storageEngine = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, "public/uploads");
-    },
-    filename: function (req, file, cb) {
-        cb(null, `${file.originalname}`);
-    },
-});
+//for storing in the filesystem
+
+// const storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//         cb(null, "public/uploads");
+//     },
+//     filename: function (req, file, cb) {
+//         cb(null, `${file.originalname}`);
+//     },
+// });
+
+//for storing in memory
+
+const storage = multer.memoryStorage({});
 
 const upload = multer({
-    storage: storageEngine,
+    storage: storage,
 });
 
 router.get("/", userHomePage);

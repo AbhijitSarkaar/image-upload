@@ -5,9 +5,8 @@ const {
 } = require("@aws-sdk/client-s3");
 const { Upload } = require("@aws-sdk/lib-storage");
 const fs = require("fs");
-
 const dotenv = require("dotenv");
-const path = require("path");
+
 dotenv.config();
 
 let client = new S3Client({
@@ -27,7 +26,8 @@ const uploadFiles = async (req, res) => {
 
     console.log(req.files);
 
-    const fileStream = fs.createReadStream("public/uploads/product-1.jpg");
+    // const fileStream = fs.createReadStream("public/uploads/product-4.jpg");
+    // console.log(fileStream);
 
     // const command = new PutObjectCommand({
     //     Bucket: "full-stack-project-files",
@@ -40,7 +40,6 @@ const uploadFiles = async (req, res) => {
     //     Key: "product-image.jpg",
     //     Body: req.files[0],
     // };
-
     try {
         // const response = await client.send(command);
         // console.log(response);
@@ -51,21 +50,20 @@ const uploadFiles = async (req, res) => {
         //     }:`
         // );
         // console.log(`${Buckets.map((b) => ` • ${b.Name}`).join("\n")}`);
-
+        //s3 image upload
         const upload = new Upload({
             client,
             params: {
                 Bucket: "full-stack-project-files",
-                Key: "product-image.jpg",
-                Body: fileStream,
+                Key: "product-image-1.jpg",
+                // Body: fileStream,
+                Body: req.files[0].buffer,
             },
-            queueSize: 3,
+            // queueSize: 3,
         });
-
         upload.on("httpUploadProgress", (progress) => {
             console.log(progress);
         });
-
         await upload.done();
     } catch (error) {
         console.log(error);
