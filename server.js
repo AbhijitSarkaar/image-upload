@@ -15,7 +15,14 @@ app.set("view engine", "ejs");
 
 app.use(express.static("public"));
 
-app.use("/", routes);
+app.use(
+    "/",
+    (req, res, next) => {
+        console.log("home page route");
+        next();
+    },
+    routes
+);
 app.use(
     "/auth",
     (req, res, next) => {
