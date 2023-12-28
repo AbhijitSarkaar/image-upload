@@ -14,11 +14,11 @@ if (token) {
             formData.append("files", files.files[i]);
         }
 
-        fetch("http://localhost:5000/upload", {
+        fetch("http://13.201.1.195:5000/upload", {
             method: "POST",
             body: formData,
         }).then((res) => {
             console.log(res);
         });
     });
-} else window.location.href = "http://localhost:5000/auth/login";
+} else window.location.href = "http://13.201.1.195:5000/auth/login";

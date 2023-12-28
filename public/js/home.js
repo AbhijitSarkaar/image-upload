@@ -1,16 +1,16 @@
 const token = sessionStorage.getItem("auth_token");
 
 if (!token) {
-    window.location.href = "http://localhost:5000/auth/login";
+    window.location.href = "http://13.201.1.195:5000/auth/login";
 }
 
 const upload = () => {
-    window.location.href = "http://localhost:5000/upload";
+    window.location.href = "http://13.201.1.195:5000/upload";
 };
 
 const logout = () => {
     sessionStorage.removeItem("auth_token");
-    window.location.href = "http://localhost:5000/auth/login";
+    window.location.href = "http://13.201.1.195:5000/auth/login";
 };
 
 const homepage = (res) => {
@@ -31,7 +31,9 @@ const homepage = (res) => {
     body.appendChild(logoutButton);
 };
 
-fetch(`http://localhost:5000/user/profile`, {
+const image_upload_service = "http://13.201.1.195:5000";
+
+fetch(`${image_upload_service}/user/profile`, {
     headers: {
         Authorization: `Bearer ${token}`,
     },

@@ -1,7 +1,7 @@
 const token = sessionStorage.getItem("auth_token");
 
 if (token) {
-    fetch("http://localhost:5000/auth/jwtverify", {
+    fetch("http://13.201.1.195:5000/auth/jwtverify", {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -9,7 +9,7 @@ if (token) {
         .then((res) => res.json())
         .then((res) => {
             if (res.success) {
-                window.location.href = `http://localhost:5000`;
+                window.location.href = `http://13.201.1.195:5000`;
             }
         });
 }
@@ -25,7 +25,7 @@ loginForm.addEventListener("submit", (event) => {
     const name = usernameElem.value;
     const pwd = passwordElem.value;
 
-    fetch("http://localhost:5000/auth/signup", {
+    fetch("http://13.201.1.195:5000/auth/signup", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -39,7 +39,7 @@ loginForm.addEventListener("submit", (event) => {
         .then((res) => {
             if (res.success) {
                 sessionStorage.setItem("auth_token", res.auth_token);
-                window.location.href = `http://localhost:5000`;
+                window.location.href = `http://13.201.1.195:5000`;
             }
         });
 });
